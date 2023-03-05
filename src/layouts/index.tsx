@@ -10,7 +10,7 @@ export default function RootLayout({ children }: LayoutProps) {
   return (
     <html lang="en">
       <Header />
-      <body>{children}</body>
+      <body className="red">{children}</body>
     </html>
   );
 }
