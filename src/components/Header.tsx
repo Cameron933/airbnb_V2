@@ -4,12 +4,31 @@ import {
   GlobeAltIcon,
   MagnifyingGlassIcon,
   UserCircleIcon,
-  UserIcon,
+  UsersIcon,
 } from "@heroicons/react/24/solid";
 import { useState } from "react";
+import { DateRangePicker } from "react-date-range";
+import "react-date-range/dist/styles.css";
+import "react-date-range/dist/theme/default.css";
 
 const Header = () => {
   const [searchInput, setSearchInput] = useState("");
+  const [startDate, setStartDate] = useState(new Date());
+  const [endDate, setEndDate] = useState(new Date());
+  const [numbOfGuests, setNumbOfGuests] = useState(1);
+  const handleSelect = (ranges: any) => {
+    setStartDate(ranges.selection.startDate);
+    setEndDate(ranges.selection.endDate);
+  };
+  const resetInput = () => {
+    setSearchInput("");
+  };
+
+  const selectionRange = {
+    startDate: startDate,
+    endDate: endDate,
+    key: "selection",
+  };
 
   return (
     <header className="sticky top-0 z-50 grid grid-cols-3 bg-white p-5 shadow-md md:px-10">
@@ -44,9 +63,31 @@ const Header = () => {
       </div>
 
       {searchInput && (
-      <div>
-
-      </div>
+        <div className="col-span-3 mx-auto mt-2 flex flex-col">
+          <DateRangePicker
+            ranges={[selectionRange]}
+            minDate={new Date()}
+            rangeColors={["#FD5B61"]}
+            onChange={handleSelect}
+          />
+          <div className="mb-4 flex items-center border-b">
+            <h2 className="flex-grow pl-2 text-2xl font-semibold">Number of Guests</h2>
+            <UsersIcon className="h-5" />
+            <input
+              className="w-12 pl-2 text-lg text-red-400 outline-none"
+              type="number"
+              value={numbOfGuests}
+              onChange={(e) => setNumbOfGuests(e.target.valueAsNumber)}
+              min={1}
+            />
+          </div>
+          <div className="flex">
+            <button className="flex-grow text-gray-500" onClick={resetInput}>
+              Cancel
+            </button>
+            <button className="flex-grow text-red-400">Search</button>
+          </div>
+        </div>
       )}
     </header>
   );
