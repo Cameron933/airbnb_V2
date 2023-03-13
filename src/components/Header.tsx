@@ -6,8 +6,11 @@ import {
   UserCircleIcon,
   UserIcon,
 } from "@heroicons/react/24/solid";
+import { useState } from "react";
 
 const Header = () => {
+  const [searchInput, setSearchInput] = useState("");
+
   return (
     <header className="sticky top-0 z-50 grid grid-cols-3 bg-white p-5 shadow-md md:px-10">
       <div className="relative my-auto flex h-10 cursor-pointer items-center">
@@ -21,6 +24,8 @@ const Header = () => {
 
       <div className="flex items-center rounded-full py-2 md:border-2 md:shadow-md">
         <input
+          value={searchInput}
+          onChange={(e) => setSearchInput(e.target.value)}
           className="flex-grow bg-transparent pl-5 text-gray-600 placeholder-gray-400 outline-none"
           type="text"
           placeholder="Start your search"
@@ -37,6 +42,12 @@ const Header = () => {
           <UserCircleIcon className="h-6" />
         </div>
       </div>
+
+      {searchInput && (
+      <div>
+
+      </div>
+      )}
     </header>
   );
 };
