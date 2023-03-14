@@ -2,13 +2,13 @@ import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import { useRouter } from "next/router";
 import React from "react";
-import {format} from "date-fns";
+import { format } from "date-fns";
 
 const search = () => {
   const router = useRouter();
   const { location, startDate, endDate, numberOfGuest } = router.query;
-  const formattedStartDate = format(new Date(startDate), "dd MMMM yy");
-  const formattedEndDate = format(new Date(endDate), "dd MMMM yy");
+  const formattedStartDate = format(new Date(startDate as string), "dd MMMM yy");
+  const formattedEndDate = format(new Date(endDate as string), "dd MMMM yy");
 
   return (
     <div>
