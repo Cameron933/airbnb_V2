@@ -10,18 +10,40 @@ import { useState } from "react";
 import { DateRangePicker } from "react-date-range";
 import "react-date-range/dist/styles.css";
 import "react-date-range/dist/theme/default.css";
+import { useRouter } from "next/router";
+import { ParsedUrlQuery } from "querystring";
+
+export interface HeaderQuery extends ParsedUrlQuery {
+  location?: string;
+  startDate?: string;
+  endDate?: string;
+  numbOfGuests?: string;
+}
 
 const Header = () => {
   const [searchInput, setSearchInput] = useState("");
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
   const [numbOfGuests, setNumbOfGuests] = useState(1);
+  const router = useRouter();
+
   const handleSelect = (ranges: any) => {
     setStartDate(ranges.selection.startDate);
     setEndDate(ranges.selection.endDate);
   };
   const resetInput = () => {
     setSearchInput("");
+  };
+  const search = () => {
+    router.push({
+      pathname: "/search",
+      query: {
+        location: searchInput,
+        startDate: startDate.toISOString(),
+        endDate: endDate.toISOString(),
+        numbOfGuests: numbOfGuests.toString(),
+      } as HeaderQuery,
+    });
   };
 
   const selectionRange = {
@@ -32,7 +54,10 @@ const Header = () => {
 
   return (
     <header className="sticky top-0 z-50 grid grid-cols-3 bg-white p-5 shadow-md md:px-10">
-      <div className="relative my-auto flex h-10 cursor-pointer items-center">
+      <div
+        onClick={() => router.push("/")}
+        className="relative my-auto flex h-10 cursor-pointer items-center"
+      >
         <Image
           src="https://links.papareact.com/qd3"
           alt="Logo"
@@ -85,7 +110,9 @@ const Header = () => {
             <button className="flex-grow text-gray-500" onClick={resetInput}>
               Cancel
             </button>
-            <button className="flex-grow text-red-400">Search</button>
+            <button onClick={search} className="flex-grow text-red-400">
+              Search
+            </button>
           </div>
         </div>
       )}
