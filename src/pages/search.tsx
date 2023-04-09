@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import { useRouter } from "next/router";
@@ -11,8 +12,6 @@ interface RouterQuery {
 const search = () => {
   const router = useRouter();
   const { location, startDate, endDate, numberOfGuest } = router.query as RouterQuery;
-  const formattedStartDate = format(new Date(startDate), "dd MMMM yy");
-  const formattedEndDate = format(new Date(endDate), "dd MMMM yy");
 
   return (
     <div>
