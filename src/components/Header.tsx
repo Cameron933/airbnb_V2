@@ -20,7 +20,7 @@ export interface HeaderQuery extends ParsedUrlQuery {
   numbOfGuests?: string;
 }
 
-const Header = () => {
+const Header = ({ placeholder }: any) => {
   const [searchInput, setSearchInput] = useState("");
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
@@ -72,7 +72,7 @@ const Header = () => {
           onChange={(e) => setSearchInput(e.target.value)}
           className="flex-grow bg-transparent pl-5 text-gray-600 placeholder-gray-400 outline-none"
           type="text"
-          placeholder="Start your search"
+          placeholder={placeholder || "Start your search"}
         />
         <MagnifyingGlassIcon className="hidden h-8 cursor-pointer rounded-full bg-red-400 p-2 text-white md:mx-2 md:inline-flex" />
       </div>

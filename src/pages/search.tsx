@@ -12,13 +12,23 @@ interface RouterQuery {
 const search = () => {
   const router = useRouter();
   const { location, startDate, endDate, numberOfGuest } = router.query as RouterQuery;
-
+  let range = "";
+  try {
+    const formattedStartDate = format(new Date(startDate), "dd MMMM yy");
+    const formattedEndDate = format(new Date(endDate), "dd MMMM yy");
+    range = `${formattedStartDate} - ${formattedEndDate}`;
+  } catch (error) {
+    console.error(error);
+  }
+  
   return (
     <div>
-      <Header />
+      <Header placeholder={`${location} | ${range} | ${numberOfGuest} guests`} />
       <main className="flex">
         <section className="flex-grow px-6 pt-14">
-          <p className="text-xs ">300 + Stays - - for {numberOfGuest} guests</p>
+          <p className="text-xs ">
+            300 + Stays - {range} - for {numberOfGuest} guests
+          </p>
           <h1 className="mt-2 mb-6 text-3xl font-semibold">Stays in {location}</h1>
           <div className="mb-5 hidden space-x-3 whitespace-nowrap text-gray-800 lg:inline-flex">
             <p className="button">Cancellation Flexibility</p>
