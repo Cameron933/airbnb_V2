@@ -4,14 +4,18 @@ import Header from "@/components/Header";
 import { useRouter } from "next/router";
 import React from "react";
 import { format } from "date-fns";
+import InforCard from "@/components/InforCard";
 
 interface RouterQuery {
   [key: string]: string;
 }
+interface SearchProps {
+  searchResults: SearchDetail[];
+}
 
-const search = () => {
+const search = ({ searchResults }: SearchProps) => {
   const router = useRouter();
-  const { location, startDate, endDate, numberOfGuest } = router.query as RouterQuery;
+  const { location, startDate, endDate, numbOfGuests } = router.query as RouterQuery;
   let range = "";
   try {
     const formattedStartDate = format(new Date(startDate), "dd MMMM yy");
@@ -20,14 +24,14 @@ const search = () => {
   } catch (error) {
     console.error(error);
   }
-  
+
   return (
     <div>
-      <Header placeholder={`${location} | ${range} | ${numberOfGuest} guests`} />
+      <Header placeholder={`${location} | ${range} | ${numbOfGuests} guests`} />
       <main className="flex">
         <section className="flex-grow px-6 pt-14">
           <p className="text-xs ">
-            300 + Stays - {range} - for {numberOfGuest} guests
+            300 + Stays - {range} - for {numbOfGuests} guests
           </p>
           <h1 className="mt-2 mb-6 text-3xl font-semibold">Stays in {location}</h1>
           <div className="mb-5 hidden space-x-3 whitespace-nowrap text-gray-800 lg:inline-flex">
@@ -37,6 +41,21 @@ const search = () => {
             <p className="button">Rooms and Beds</p>
             <p className="button">More filters</p>
           </div>
+
+          <div className="flex flex-col">
+            {searchResults.map(({ img, location, title, description, star, price, total }) => (
+              <InforCard
+                key={img}
+                img={img}
+                location={location}
+                title={title}
+                description={description}
+                star={star}
+                price={price}
+                total={total}
+              />
+            ))}
+          </div>
         </section>
       </main>
       <Footer />
@@ -45,3 +64,13 @@ const search = () => {
 };
 
 export default search;
+
+export const getServerSideProps = async () => {
+  const searchResults = await fetch("https://www.jsonkeeper.com/b/5NPS").then((res) => res.json());
+
+  return {
+    props: {
+      searchResults,
+    },
+  };
+};

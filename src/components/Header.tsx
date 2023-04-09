@@ -19,8 +19,11 @@ export interface HeaderQuery extends ParsedUrlQuery {
   endDate?: string;
   numbOfGuests?: string;
 }
+interface HeaderProps {
+  placeholder: string;
+}
 
-const Header = ({ placeholder }: any) => {
+const Header = ({ placeholder }: HeaderProps) => {
   const [searchInput, setSearchInput] = useState("");
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
