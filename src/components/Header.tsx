@@ -20,7 +20,7 @@ export interface HeaderQuery extends ParsedUrlQuery {
   numbOfGuests?: string;
 }
 interface HeaderProps {
-  placeholder: string;
+  placeholder?: string;
 }
 
 const Header = ({ placeholder }: HeaderProps) => {
@@ -62,7 +62,7 @@ const Header = ({ placeholder }: HeaderProps) => {
         className="relative my-auto flex h-10 cursor-pointer items-center"
       >
         <Image
-          src="https://links.papareact.com/qd3"
+          src={`${process.env.NEXT_PUBLIC_HEADER_IMG_LINK}`}
           alt="Logo"
           fill
           style={{ objectFit: "contain", objectPosition: "left" }}

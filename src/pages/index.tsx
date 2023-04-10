@@ -45,7 +45,7 @@ export default function Home({ exploreData, cardsData }: any) {
         </section>
 
         <LargeCard
-          img="https://links.papareact.com/4cj"
+          img={`${process.env.NEXT_PUBLIC_LARGE_CARD_IMG_LINK}`}
           title="The Greatest Ourtdoors"
           description="Wishlists curated by Airbnb."
           buttonText="Get Inspired"
@@ -58,12 +58,12 @@ export default function Home({ exploreData, cardsData }: any) {
 }
 
 export async function getStaticProps() {
-  const exploreData = await fetch("https://www.jsonkeeper.com/b/4G1G")
+  const exploreData = await fetch(`${process.env.EXPLORE_DATA}`)
     .then((res) => res.json())
     .catch((error) => {
       console.error("Error:", error);
     });
-  const cardsData = await fetch("https://www.jsonkeeper.com/b/VHHT")
+  const cardsData = await fetch(`${process.env.CARDS_DATA}`)
     .then((res) => res.json())
     .catch((error) => {
       console.error("Error:", error);

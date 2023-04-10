@@ -5,7 +5,7 @@ const Banner = () => {
   return (
     <div className="relative h-[300px] sm:h-[400px] lg:h-[500px] xl:h-[600px] 2xl:h-[700px]">
       <Image
-        src="https://links.papareact.com/0fm"
+        src={`${process.env.NEXT_PUBLIC_BANNER_IMG_LINK}`}
         alt="Logo"
         fill
         style={{ objectFit: "cover", objectPosition: "left" }}

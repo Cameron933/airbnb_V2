@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 import React from "react";
 import { format } from "date-fns";
 import InforCard from "@/components/InforCard";
-
+import Map from "@/components/Map";
 interface RouterQuery {
   [key: string]: string;
 }
@@ -57,6 +57,10 @@ const search = ({ searchResults }: SearchProps) => {
             ))}
           </div>
         </section>
+
+        <section className="sticky top-[76px] hidden h-[calc(100vh-76px)] xl:inline-flex xl:min-w-[40%]">
+          <Map searchResults={searchResults} />
+        </section>
       </main>
       <Footer />
     </div>
@@ -66,7 +70,7 @@ const search = ({ searchResults }: SearchProps) => {
 export default search;
 
 export const getServerSideProps = async () => {
-  const searchResults = await fetch("https://www.jsonkeeper.com/b/5NPS").then((res) => res.json());
+  const searchResults = await fetch(`${process.env.SEARCH_DATA}`).then((res) => res.json());
 
   return {
     props: {
