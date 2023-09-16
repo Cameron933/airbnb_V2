@@ -15,7 +15,7 @@ interface InforCardProps {
 
 const InforCard = ({ img, location, title, description, star, price, total }: InforCardProps) => {
   return (
-    <div className="pr-4hover:opacity-80 flex cursor-pointer border-b py-7 px-2 transition duration-200  ease-out first:border-t hover:shadow-lg">
+    <div className="pr-4 hover:opacity-80 flex cursor-pointer border-b py-7 px-2 transition duration-200 ease-out first:border-t hover:shadow-lg">
       <div className="relative h-24 w-40 flex-shrink-0 md:h-52 md:w-80">
         <Image
           className="rounded-2xl"

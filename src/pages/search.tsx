@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/rules-of-hooks */
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import { useRouter } from "next/router";
@@ -14,6 +13,7 @@ interface SearchProps {
 }
 
 const search = ({ searchResults }: SearchProps) => {
+  // eslint-disable-next-line react-hooks/rules-of-hooks
   const router = useRouter();
   const { location, startDate, endDate, numbOfGuests } = router.query as RouterQuery;
   let range = "";
